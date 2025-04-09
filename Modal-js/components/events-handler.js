@@ -1,21 +1,30 @@
 // Function to create an event item
 function createEventItem(event) {
-    const item = document.createElement('li');
-    item.className = 'event-item';
-    item.onclick = () => openEventModal(event.image);
-
-    const date = document.createElement('div');
-    date.className = 'event-date';
-    date.textContent = event.date;
-
-    const title = document.createElement('div');
-    title.className = 'event-title';
-    title.textContent = event.title;
-
-    item.appendChild(date);
-    item.appendChild(title);
-
-    return item;
+    const li = document.createElement('li');
+    li.className = 'event-item';
+    
+    const dateSpan = document.createElement('span');
+    dateSpan.className = 'event-date';
+    dateSpan.textContent = event.date;
+    
+    const titleLink = document.createElement('a');
+    titleLink.className = 'event-title';
+    titleLink.href = '#';
+    titleLink.textContent = event.title;
+    titleLink.onclick = (e) => {
+        e.preventDefault();
+        const modal = document.getElementById('eventModal');
+        const image = document.getElementById('eventModalImage');
+        if (modal && image) {
+            image.src = event.image;
+            modal.style.display = 'flex';
+        }
+    };
+    
+    li.appendChild(dateSpan);
+    li.appendChild(titleLink);
+    
+    return li;
 }
 
 // Function to load upcoming events
@@ -40,6 +49,13 @@ function openEventModal(imagePath) {
     if (modal && modalImg) {
         modalImg.src = imagePath;
         modal.style.display = 'block';
+    }
+}
+
+export function closeEventModal() {
+    const modal = document.getElementById('eventModal');
+    if (modal) {
+        modal.style.display = 'none';
     }
 }
 
