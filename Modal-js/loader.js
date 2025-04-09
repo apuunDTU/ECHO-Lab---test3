@@ -67,17 +67,27 @@ async function loadLabNotes() {
                 
                 // Create a function to evaluate the script and return the note data
                 console.log(`Evaluating script for ${projectId}...`);
-                const getNoteData = new Function(`
-                    try {
-                        ${projectScript}
-                        return noteData;
-                    } catch (e) {
-                        console.error('Error evaluating script:', e);
-                        return null;
-                    }
-                `);
+                let noteData;
+                try {
+                    const getNoteData = new Function(`
+                        try {
+                            ${projectScript}
+                            if (typeof noteData === 'undefined') {
+                                console.error('noteData is undefined');
+                                return null;
+                            }
+                            return noteData;
+                        } catch (e) {
+                            console.error('Error in script evaluation:', e);
+                            return null;
+                        }
+                    `);
+                    noteData = getNoteData();
+                } catch (e) {
+                    console.error(`Error creating evaluation function for ${projectId}:`, e);
+                    continue;
+                }
                 
-                const noteData = getNoteData();
                 console.log(`Note data for ${projectId}:`, noteData);
                 
                 if (noteData) {
