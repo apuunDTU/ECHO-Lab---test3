@@ -5,7 +5,7 @@ import { loadEvents, createEventItem } from './components/events-handler.js';
 async function loadEventsData() {
     try {
         console.log('Fetching events data...');
-        const response = await fetch('../Events/events.json');
+        const response = await fetch('Events/events.json');
         if (!response.ok) {
             throw new Error(`Failed to load events: ${response.status} ${response.statusText}`);
         }
@@ -31,7 +31,7 @@ async function loadLabNotes() {
 
         // Get all project files from the projects directory
         console.log('Fetching Projects/project-list.json...');
-        const response = await fetch('../Projects/project-list.json');
+        const response = await fetch('Projects/project-list.json');
         console.log('Response status:', response.status);
         
         if (!response.ok) {
@@ -51,7 +51,7 @@ async function loadLabNotes() {
         for (const projectId of projectIndex.projects) {
             try {
                 console.log(`Loading project: ${projectId}`);
-                const projectUrl = `../Projects/${projectId}.js`;
+                const projectUrl = `Projects/${projectId}.js`;
                 console.log(`Fetching from URL: ${projectUrl}`);
                 const projectResponse = await fetch(projectUrl);
                 console.log(`Project response status for ${projectId}:`, projectResponse.status);
