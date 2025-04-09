@@ -1,7 +1,7 @@
 // Digital Democracy Initiative project data
 const noteData = {
   id: 3,
-  title: "DIGITAL DEMOCRACY INITIATIVE",
+  title: "Web Accessibility Assessment oF Mobile Ethnography Tools The Urban Belonging Photo App",
   date: "22.03.2024",
   image: "Assets/Test.png",
   preview: "An initiative exploring how digital technologies can enhance democratic processes while addressing challenges such as misinformation, algorithmic bias, and digital divides. The project brings together technologists, social scientists, and policymakers to develop frameworks for more inclusive and transparent digital governance.",
