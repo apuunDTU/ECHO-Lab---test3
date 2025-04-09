@@ -57,7 +57,7 @@ async function loadLabNotes() {
                 console.log(`Project response status for ${projectId}:`, projectResponse.status);
                 
                 if (!projectResponse.ok) {
-                    console.error(`Failed to load project: ${projectId} - ${projectResponse.status} ${response.statusText}`);
+                    console.error(`Failed to load project: ${projectId} - ${projectResponse.status} ${projectResponse.statusText}`);
                     continue;
                 }
                 
@@ -68,8 +68,13 @@ async function loadLabNotes() {
                 // Create a function to evaluate the script and return the note data
                 console.log(`Evaluating script for ${projectId}...`);
                 const getNoteData = new Function(`
-                    ${projectScript}
-                    return noteData;
+                    try {
+                        ${projectScript}
+                        return noteData;
+                    } catch (e) {
+                        console.error('Error evaluating script:', e);
+                        return null;
+                    }
                 `);
                 
                 const noteData = getNoteData();
