@@ -34,6 +34,9 @@ export function createLabNoteCard(note) {
 
     const title = document.createElement('h2');
     title.className = 'project-title';
+    if (note.title.split(' ').length > 4) {
+        title.classList.add('long-title');
+    }
     title.textContent = note.title;
 
     const preview = document.createElement('p');
